@@ -6,9 +6,12 @@ sigma = 'abcdefghijklmnopqrstuvwxyz'
 gamma = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 numeros = '0123456789'
 
+logging.basicConfig(level=logging.INFO)
+
 
 # Expressão regular para Nome, nome do meio e sobrenome
 def testar_nome(nomes):
+    logging.info("Iniciando teste de Nomes")
     nome_regex = r'^[A-Z][a-z]*\s[A-Z]?[a-z]*\s?[A-Z][a-z]*$'
     for nome in nomes:
         if re.match(nome_regex, nome):
@@ -19,6 +22,7 @@ def testar_nome(nomes):
 
 # Expressão regular para E-mail
 def testar_email(emails):
+    logging.info("Iniciando teste de Email")
     email_regex = r'^[^@]+@[^@]+\.com\.br|\.br$'
     for email in emails:
         if re.match(email_regex, email):
@@ -29,6 +33,7 @@ def testar_email(emails):
 
 # Expressão regular para Senha
 def testar_senha(senhas):
+    logging.info("Iniciando teste de Senha")
     senha_regex = r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z0-9]{8}$'
     for senha in senhas:
         if re.match(senha_regex, senha):
@@ -39,6 +44,7 @@ def testar_senha(senhas):
 
 # Expressão regular para CPF
 def testar_cpf(cpfs):
+    logging.info("Iniciando teste de CPF")
     cpf_regex = r'^\d{3}\.\d{3}\.\d{3}-\d{2}$'
     for cpf in cpfs:
         if re.match(cpf_regex, cpf):
@@ -49,6 +55,8 @@ def testar_cpf(cpfs):
 
 # Expressão regular para Telefone
 def testar_telefone(telefones):
+    logging.info("Iniciando teste de Telefones")
+
     telefone_regex = r'^(\(\d{2}\)\s?)?9\d{4}-\d{4}|\(\d{2}\)\s?9\d{8}|\d{2}\s?9\d{8}$'
     for telefone in telefones:
         if re.match(telefone_regex, telefone):
@@ -59,6 +67,8 @@ def testar_telefone(telefones):
 
 # Expressão regular para Data e horário
 def testar_data_horario(datas_horarios):
+    logging.info("Iniciando teste de Datas e Horários")
+
     data_horario_regex = r'^\d{2}/\d{2}/\d{4}\s\d{2}:\d{2}:\d{2}$'
     for data_horario in datas_horarios:
         if re.match(data_horario_regex, data_horario):
@@ -69,6 +79,8 @@ def testar_data_horario(datas_horarios):
 
 # Expressão regular para Número real com ou sem sinal
 def testar_numero_real(numeros_reais):
+    logging.info("Iniciando teste de numeros reais")
+
     numero_real_regex = r'^[+-]?\d+\.\d+|^\d+$'
     for numero_real in numeros_reais:
         if re.match(numero_real_regex, numero_real):
@@ -76,8 +88,6 @@ def testar_numero_real(numeros_reais):
         else:
             print(f'O número real "{numero_real}" não é válido de acordo com a expressão regular.')
 
-
-# Testar as expressões regulares
 
 # Nomes Válidos
 testar_nome(['Xavier Alexander Hawthorne', 'Ximena Aurora Hendricks', 'Xander Avery Hill', 'Xenia Beatrice Irwin',
@@ -279,9 +289,6 @@ testar_numero_real(
      '890ccccccccccccc', '+10000dddddddddddd', '-50000eeeeeeeeeee', '1234aaaaaaaaaaaaa', '567bbbbbbbbbbbbb',
      '890cccccccccccccc', '+10000ddddddddddddd', '-50000eeeeeeeeeeee', '1234aaaaaaaaaaaaaa', '567bbbbbbbbbbbbbbb',
      '890ccccccccccccccc', '+10000dddddddddddddd', '-50000eeeeeeeeeeeeee', '1234aaaaaaaaaaaaaaa', '567bbbbbbbbbbbbbbbb',
-     '890cccccccccccccccc', '+10000ddddddddddddddd', '-50000eeeeeeeeeeeeeee', '1234aaaaaaaaaaaaaaaa',
-     '567bbbbbbbbbbbbbbbbb', '890ccccccccccccccccc', '+10000dddddddddddddddd', '-50000eeeeeeeeeeeeeeeee',
-     '1234aaaaaaaaaaaaaaaaa', '567bbbbbbbbbbbbbbbbbb', '890cccccccccccccccccc', '+10000ddddddddddddddddd',
      '-50000eeeeeeeeeeeeeeee', '1234aaaaaaaaaaaaaaaaaa', '567bbbbbbbbbbbbbbbbbbb', '890cccccccccccccccccccc',
      '+10000ddddddddddddddddddd', '-50000eeeeeeeeeeeeeeeeeee', '1234aaaaaaaaaaaaaaaaaaa', '567bbbbbbbbbbbbbbbbbbbb',
      '890ccccccccccccccccccccc', '+10000dddddddddddddddddddd', '-50000eeeeeeeeeeeeeeeeeeee', '1234aaaaaaaaaaaaaaaaaaaa',
