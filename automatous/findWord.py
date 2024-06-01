@@ -13,6 +13,14 @@ def build_dfa(pattern):
     return dfa
 
 
+def is_word_boundary(text, index, pattern_length):
+    if index > 0 and text[index - 1].isalnum():
+        return False
+    if index + pattern_length < len(text) and text[index + pattern_length].isalnum():
+        return False
+    return True
+
+
 def search(text, pattern):
     dfa = build_dfa(pattern)
     M = len(pattern)
@@ -23,7 +31,8 @@ def search(text, pattern):
     for i in range(N):
         j = dfa[j].get(text[i], 0)
         if j == M:
-            positions.append(i - M + 1)
+            if is_word_boundary(text, i - M + 1, M):
+                positions.append(i - M + 1)
             j = 0
 
     return positions
