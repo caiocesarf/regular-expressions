@@ -6,7 +6,7 @@ def build_dfa(pattern):
 # Iterando através do padrão.
     X = 0 # Esta variável será usada para rastrear o estado atual durante o processo de construção.
     for j in range(1, M): # Itera pelos caracteres padrão, começando do segundo caractere (índice 1) até o último caractere ( M - 1).
-# Preenchendo a Tabela de Transição        
+# Preenchendo a Tabela de Transição
         for c in range(256):   # Itera todos os caracteres possíveis (representados por seus códigos ASCII de 0 a 255) no intervalo de um byte. Isso garante que o DFA possa lidar com qualquer caractere, não apenas aqueles no padrão específico.
             dfa[j][chr(c)] = dfa[X].get(chr(c), 0) # Para cada estado je caractere c, esta linha tenta encontrar uma transição do estado X(o estado atual) ao encontrar o caractere c.
         # Configurando a transição explícita
@@ -34,7 +34,7 @@ def search(text, pattern): # esta linha define uma função chamada searchque re
 # Iterando através do texto
     for i in range(N): # Este loop itera sobre cada caractere ( text[i]) na string de texto.
 # Transição no DFA
-        j = dfa[j].get(text[i], 0) 
+        j = dfa[j].get(text[i], 0)
 # combinando o padrão
         if j == M:
 # Verificando os limites do Word (opcional)
