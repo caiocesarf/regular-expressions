@@ -19,8 +19,16 @@ def build_dfa(pattern):
 
     return dfa
 
+def print_dfa(dfa):
+    for i, state in enumerate(dfa):
+        formatted_state = {repr(k): v for k, v in state.items()}
+        print(f"Estado {i}: {formatted_state}")
+
+
+
 def search_dfa(text, pattern):
     dfa = build_dfa(pattern)
+    print_dfa(dfa)  # Adiciona esta linha para imprimir a tabela de transição
     M = len(pattern)
     N = len(text)
     j = 0
