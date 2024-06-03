@@ -1,3 +1,6 @@
+from graphviz import Digraph
+
+
 class DFA:
     def __init__(self, states, alphabet, transition_function, start_state, accept_states):
         self.states = states
@@ -14,6 +17,29 @@ class DFA:
             else:
                 return False
         return current_state in self.accept_states
+
+    def plot(self, filename):
+        dot = Digraph()
+
+        # Adiciona os estados
+        for state in self.states:
+            if state in self.accept_states:
+                dot.node(state, shape='doublecircle')
+            else:
+                dot.node(state)
+
+        # Adiciona o estado inicial
+        dot.node('', shape='none')
+        dot.edge('', self.start_state)
+
+        # Adiciona as transições
+        for state, transitions in self.transition_function.items():
+            for symbol, next_state in transitions.items():
+                dot.edge(state, next_state, label=symbol)
+
+        # Salva o gráfico como um arquivo JPG
+        dot.format = 'jpg'
+        dot.render(filename)
 
 
 # a) (ab*c*)*
@@ -50,17 +76,16 @@ dfa_b = DFA(
 )
 
 # Define the DFA for a* b | ab*
-dfa_c = DFA(
-    states={'q0', 'q1', 'q2', 'q3'},
+dfa_c =DFA(
+    states={'q0', 'q1', 'q2'},
     alphabet={'a', 'b'},
     transition_function={
-        'q0': {'a': 'q0', 'b': 'q2'},
-        'q2': {'a': 'q2', 'b': 'q2'},
-        'q0': {'a': 'q3'},
-        'q3': {'b': 'q3'}
+        'q0': {'a': 'q0', 'b': 'q1'},
+        'q1': {'b': 'q1'},
+        'q2': {'b': 'q2'}
     },
     start_state='q0',
-    accept_states={'q2', 'q3'}
+    accept_states={'q1', 'q2'}
 )
 
 # d) a*b*(a|ac*)
@@ -285,3 +310,10 @@ for string in accepted_strings_d:
 for string in rejected_strings_d:
     print(f"String '{string}' is accepted by DFA d: {dfa_d.accepts(string)}")  # False
 print()
+
+
+# Plotando os autômatos
+dfa_a.plot('dfa_a')
+dfa_b.plot('dfa_b')
+dfa_c.plot('dfa_c')
+dfa_d.plot('dfa_d')
