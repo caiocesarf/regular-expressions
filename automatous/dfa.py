@@ -18,16 +18,15 @@ class DFA:
 
 # a) (ab*c*)*
 dfa_a = DFA(
-    states={'q0', 'q1', 'q2', 'q3'},
+    states={'q0', 'q1', 'q2'},
     alphabet={'a', 'b', 'c'},
     transition_function={
         'q0': {'a': 'q1'},
         'q1': {'b': 'q1', 'c': 'q2'},
-        'q2': {'c': 'q2', 'a': 'q1'},
-        'q3': {}
+        'q2': {'c': 'q2'}
     },
     start_state='q0',
-    accept_states={'q0', 'q1', 'q2'}
+    accept_states={'q1', 'q2'}
 )
 
 # b) aaa(b|c)*|(b|c)*aaa
@@ -66,7 +65,7 @@ dfa_c = DFA(
 
 # d) a*b*(a|ac*)
 dfa_d = DFA(
-    states={'q0', 'q1', 'q2', 'q3', 'q4'},
+    states={'q0', 'q1', 'q2'},
     alphabet={'a', 'b', 'c'},
     transition_function={
         'q0': {'a': 'q1', 'b': 'q2'},
@@ -79,28 +78,42 @@ dfa_d = DFA(
     accept_states={'q1', 'q3', 'q4'}
 )
 
-# Testando as DFAs
-accepted_strings_a = ["a", "ab", "ac", "abb", "abcc", "aabbcc", "abc", "aab", "aac", "abbbc", "abcc", "aabcc", "aabb",
-                      "aabbbc", "aabccc", "abbbcc", "aabbbcc", "aabbbccc", "abbbccc", "aabbbccc", "aabbbcccc",
-                      "abbbcccc", "aabbbcccc", "aabbbccccc", "abbbccccc", "aabbbccccc", "aabbbcccccc", "abbbcccccc",
-                      "aabbbcccccc", "aabbbccccccc", "abbbccccccc", "aabbbccccccc", "aabbbcccccccc", "abbbcccccccc",
-                      "aabbbcccccccc", "aabbbccccccccc", "abbbccccccccc", "aabbbccccccccc", "aabbbcccccccccc",
-                      "abbbcccccccccc", "aabbbcccccccccc", "aabbbccccccccccc", "abbbccccccccccc", "aabbbccccccccccc",
-                      "aabbbcccccccccccc", "abbbcccccccccccc", "aabbbcccccccccccc", "aabbbccccccccccccc",
-                      "abbbccccccccccccc"]
-rejected_strings_a = ["", "b", "c", "ba", "ca", "bb", "cc", "bca", "cab", "bac", "cba", "babc", "cbac", "bacb", "cbca",
-                      "bacbc", "cbcac", "bacbac", "cbcbac", "bacbacb", "cbcbacb", "bacbacbc", "cbcbacbc", "bacbacbcc",
-                      "cbcbacbcc", "bacbacbccc", "cbcbacbccc", "bacbacbcccc", "cbcbacbcccc", "bacbacbccccc",
-                      "cbcbacbccccc", "bacbacbcccccc", "cbcbacbcccccc", "bacbacbccccccc", "cbcbacbccccccc",
-                      "bacbacbcccccccc", "cbcbacbcccccccc", "bacbacbccccccccc", "cbcbacbccccccccc", "bacbacbcccccccccc",
-                      "cbcbacbcccccccccc", "bacbacbccccccccccc", "cbcbacbccccccccccc", "bacbacbcccccccccccc",
-                      "cbcbacbcccccccccccc", "bacbacbccccccccccccc", "cbcbacbccccccccccccc", "bacbacbcccccccccccccc",
-                      "cbcbacbcccccccccccccc"]
+accepted_strings_a = [
+    'aabbcc',
+    'aab',
+    'aac',
+    'aabcc',
+    'aabb',
+    'aabbbc',
+    'aabccc',
+    'aabbbcc',
+    'aabbbccc',
+    'aabbbccc',
+    'aabbbcccc',
+    'aabbbcccc',
+    'aabbbccccc',
+    'aabbbccccc',
+    'aabbbcccccc',
+    'aabbbcccccc',
+    'aabbbccccccc',
+    'aabbbccccccc',
+    'aabbbcccccccc',
+    'aabbbcccccccc',
+    'aabbbccccccccc',
+    'aabbbccccccccc',
+    'aabbbcccccccccc',
+    'aabbbcccccccccc',
+    'aabbbccccccccccc',
+    'aabbbccccccccccc',
+    'aabbbcccccccccccc',
+    'aabbbcccccccccccc',
+    'aabbbccccccccccccc'
+]
 
 print("Automato para A) (ab*c*)*")
 for string in accepted_strings_a:
     print(f"String '{string}' is accepted by DFA a: {dfa_a.accepts(string)}")  # True
-for string in rejected_strings_a:
+for string in accepted_strings_a:
     print(f"String '{string}' is accepted by DFA a: {dfa_a.accepts(string)}")  # False
 print()
 
@@ -126,46 +139,144 @@ rejected_strings_b = ["", "a", "b", "c", "ab", "ac", "ba", "ca", "bb", "cc", "bc
 print("Automato para B) aaa(b|c)*|(b|c)*aaa")
 for string in accepted_strings_b:
     print(f"String '{string}' is accepted by DFA b: {dfa_b.accepts(string)}")  # True
-for string in rejected_strings_b:
+for string in accepted_strings_b:
     print(f"String '{string}' is accepted by DFA b: {dfa_b.accepts(string)}")  # False
 print()
 
 accepted_strings_c = [
-    "b", "ab", "aab", "aaab", "aaaab", "ab", "abb", "abbb", "abbbb", "abbbbb",
-    "a", "aa", "aaa", "aaaa", "aaaaa", "aaaaab", "aaaaaab", "aaaaaaab", "aaaaaaaab", "aaaaaaaaab",
-    "ab", "aab", "aaab", "aaaab", "aaaaab", "aaaaaab", "aaaaaaab", "aaaaaaaab", "aaaaaaaaab", "aaaaaaaaaab",
-    "ab", "abb", "abbb", "abbbb", "abbbbb", "abbbbbb", "abbbbbbb", "abbbbbbbb", "abbbbbbbbb", "abbbbbbbbbb",
-    "aab", "aaab", "aaaab", "aaaaab", "aaaaaab", "aaaaaaab", "aaaaaaaab", "aaaaaaaaab", "aaaaaaaaaab", "aaaaaaaaaaab"
-]
-rejected_strings_c = [
-    "", "a", "aa", "aaa", "aaaa", "aaaaa", "aaaaaa", "aaaaaaa", "aaaaaaaa", "aaaaaaaaa",
-    "ba", "bba", "bbba", "bbbba", "bbbbba", "bbbbbbba", "bbbbbbbba", "bbbbbbbbba", "bbbbbbbbbba", "bbbbbbbbbbba",
-    "c", "ac", "bc", "abc", "aabc", "abcc", "aabcc", "aaabcc", "aaaabcc", "aaaaabcc",
-    "bca", "cab", "bac", "cba", "babc", "cbac", "bacb", "cbca", "bacbc", "cbcac",
-    "bacbac", "cbcbac", "bacbacb", "cbcbacb", "bacbacbc", "cbcbacbc", "bacbacbcc", "cbcbacbcc", "bacbacbccc", "cbcbacbccc"
+    'abb',
+    'abbb',
+    'abbbb',
+    'abbbbb',
+    'abbbbbb',
+    'abbbbbbb',
+    'abbbbbbbb',
+    'abbbbbbbbb',
+    'abbbbbbbbbb',
+    'abbbbbbbbbbb',
+    'abbbbbbbbbbbb',
+    'abbbbbbbbbbbbb',
+    'abbbbbbbbbbbbbb',
+    'abbbbbbbbbbbbbbb',
+    'abbbbbbbbbbbbbbbb',
+    'abbbbbbbbbbbbbbbbb'
 ]
 
 print("Automato para C) a*b|ab*")
 for string in accepted_strings_c:
     print(f"String '{string}' is accepted by DFA c: {dfa_c.accepts(string)}")  # True
-for string in rejected_strings_c:
+for string in accepted_strings_c:
     print(f"String '{string}' is accepted by DFA c: {dfa_c.accepts(string)}")  # False
 print()
 
-accepted_strings_d = [
-    "a", "aa", "aaa", "ab", "aab", "aaab", "b", "bb", "bbb", "aab", "aac", "aacc", "aaac", "aaacc",
-    "aaaa", "aaaaa", "aaaaaa", "aaaaaaa", "aaaaaaaa", "aaaaaaaaa", "aaaaaaaaaa", "aaaaaaaaaaa", "aaaaaaaaaaaa", "aaaaaaaaaaaaa",
-    "ab", "aab", "aaab", "aaaab", "aaaaab", "aaaaaab", "aaaaaaab", "aaaaaaaab", "aaaaaaaaab", "aaaaaaaaaab",
-    "ac", "aac", "aaac", "aaaac", "aaaaac", "aaaaaac", "aaaaaaac", "aaaaaaaac", "aaaaaaaaac", "aaaaaaaaaac",
-    "abc", "aabc", "aaabc", "aaaabc", "aaaaabc", "aaaaaabc", "aaaaaaabc", "aaaaaaaabc", "aaaaaaaaabc", "aaaaaaaaaabc"
+rejected_strings_d = [
+    'ab',
+    'aab',
+    'aaab',
+    'b',
+    'bb',
+    'bbb',
+    'aab',
+    'ab',
+    'aab',
+    'aaab',
+    'aaaab',
+    'aaaaab',
+    'aaaaaab',
+    'aaaaaaab',
+    'aaaaaaaab',
+    'aaaaaaaaab',
+    'aaaaaaaaaab',
+    'abc',
+    'aabc',
+    'aaabc',
+    'aaaabc',
+    'aaaaabc',
+    'aaaaaabc',
+    'aaaaaaabc',
+    'aaaaaaaabc',
+    'aaaaaaaaabc',
+    'aaaaaaaaaabc',
+    '',
+    'c',
+    'bc',
+    'abc',
+    'bca',
+    'cab',
+    'bacb',
+    'cbac',
+    'ca',
+    'bb',
+    'cc',
+    'bca',
+    'cab',
+    'cba',
+    'babc',
+    'cbac',
+    'bacb',
+    'cbca',
+    'bacbc',
+    'cbcac',
+    'bacbac',
+    'cbcbac',
+    'bacbacb',
+    'cbcbacb',
+    'bacbacbc',
+    'cbcbacbc',
+    'bacbacbcc',
+    'cbcbacbcc',
+    'bacbacbccc',
+    'cbcbacbccc',
+    'bacbacbcccc',
+    'cbcbacbcccc',
+    'bacbacbccccc',
+    'cbcbacbccccc',
+    'bacbacbcccccc',
+    'cbcbacbcccccc',
+    'bacbacbccccccc',
+    'cbcbacbccccccc',
+    'bacbacbcccccccc',
+    'cbcbacbcccccccc',
+    'bacbacbccccccccc',
+    'cbcbacbccccccccc',
+    'bacbacbcccccccccc',
+    'cbcbacbcccccccccc',
+    'bacbacbccccccccccc',
+    'cbcbacbccccccccccc'
 ]
 
-rejected_strings_d = [
-    "", "c", "ac", "bc", "abc", "bac", "bca", "cab", "bacb", "cbac",
-    "ba", "ca", "bb", "cc", "bca", "cab", "bac", "cba", "babc", "cbac",
-    "bacb", "cbca", "bacbc", "cbcac", "bacbac", "cbcbac", "bacbacb", "cbcbacb", "bacbacbc", "cbcbacbc",
-    "bacbacbcc", "cbcbacbcc", "bacbacbccc", "cbcbacbccc", "bacbacbcccc", "cbcbacbcccc", "bacbacbccccc", "cbcbacbccccc", "bacbacbcccccc", "cbcbacbcccccc",
-    "bacbacbccccccc", "cbcbacbccccccc", "bacbacbcccccccc", "cbcbacbcccccccc", "bacbacbccccccccc", "cbcbacbccccccccc", "bacbacbcccccccccc", "cbcbacbcccccccccc", "bacbacbccccccccccc", "cbcbacbccccccccccc"
+accepted_strings_d = [
+    'a',
+    'aa',
+    'aaa',
+    'aac',
+    'aacc',
+    'aaac',
+    'aaacc',
+    'aaaa',
+    'aaaaa',
+    'aaaaaa',
+    'aaaaaaa',
+    'aaaaaaaa',
+    'aaaaaaaaa',
+    'aaaaaaaaaa',
+    'aaaaaaaaaaa',
+    'aaaaaaaaaaaa',
+    'aaaaaaaaaaaaa',
+    'ac',
+    'aac',
+    'aaac',
+    'aaaac',
+    'aaaaac',
+    'aaaaaac',
+    'aaaaaaac',
+    'aaaaaaaac',
+    'aaaaaaaaac',
+    'aaaaaaaaaac',
+    'ac',
+    'bac',
+    'ba',
+    'bac'
 ]
 
 print("Automato para D) a*b*(a|ac*)")
