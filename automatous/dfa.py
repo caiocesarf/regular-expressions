@@ -22,13 +22,14 @@ dfa_a = DFA(
     alphabet={'a', 'b', 'c'},
     transition_function={
         'q0': {'a': 'q1'},
-        'q1': {'b': 'q1', 'c': 'q2'},
+        'q1': {'b': 'q3', 'a': 'q1', 'c': 'q2'},
         'q2': {'c': 'q2', 'a': 'q1'},
-        'q3': {}
+        'q3': {'b': 'q3', 'a': 'q1', 'c':'q2' }
     },
     start_state='q0',
-    accept_states={'q0', 'q1', 'q2'}
+    accept_states={'q0', 'q1', 'q2', 'q3'}
 )
+
 
 # b) aaa(b|c)*|(b|c)*aaa
 dfa_b = DFA(
@@ -80,7 +81,7 @@ dfa_d = DFA(
 )
 
 # Testando as DFAs
-accepted_strings_a = ["a", "ab", "ac", "abb", "abcc", "aabbcc", "abc", "aab", "aac", "abbbc", "abcc", "aabcc", "aabb",
+accepted_strings_a = ["","a", "ab", "ac", "abb", "abcc", "aabbcc", "abc", "aab", "aac", "abbbc", "abcc", "aabcc", "aabb",
                       "aabbbc", "aabccc", "abbbcc", "aabbbcc", "aabbbccc", "abbbccc", "aabbbccc", "aabbbcccc",
                       "abbbcccc", "aabbbcccc", "aabbbccccc", "abbbccccc", "aabbbccccc", "aabbbcccccc", "abbbcccccc",
                       "aabbbcccccc", "aabbbccccccc", "abbbccccccc", "aabbbccccccc", "aabbbcccccccc", "abbbcccccccc",
@@ -88,7 +89,7 @@ accepted_strings_a = ["a", "ab", "ac", "abb", "abcc", "aabbcc", "abc", "aab", "a
                       "abbbcccccccccc", "aabbbcccccccccc", "aabbbccccccccccc", "abbbccccccccccc", "aabbbccccccccccc",
                       "aabbbcccccccccccc", "abbbcccccccccccc", "aabbbcccccccccccc", "aabbbccccccccccccc",
                       "abbbccccccccccccc"]
-rejected_strings_a = ["", "b", "c", "ba", "ca", "bb", "cc", "bca", "cab", "bac", "cba", "babc", "cbac", "bacb", "cbca",
+rejected_strings_a = ["b", "c", "ba", "ca", "bb", "cc", "bca", "cab", "bac", "cba", "babc", "cbac", "bacb", "cbca",
                       "bacbc", "cbcac", "bacbac", "cbcbac", "bacbacb", "cbcbacb", "bacbacbc", "cbcbacbc", "bacbacbcc",
                       "cbcbacbcc", "bacbacbccc", "cbcbacbccc", "bacbacbcccc", "cbcbacbcccc", "bacbacbccccc",
                       "cbcbacbccccc", "bacbacbcccccc", "cbcbacbcccccc", "bacbacbccccccc", "cbcbacbccccccc",
