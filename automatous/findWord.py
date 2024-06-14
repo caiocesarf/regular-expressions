@@ -1,17 +1,19 @@
-# Este código define uma classe DFA para representar um Autômato Finito Determinístico (DFA) e demonstra sua utilização para verificar se uma string pertence a uma linguagem regular específica.
+# Cria um autômato finito determinístico (DFA) a a partir da expressão regular.
 def build_dfa(pattern):
-    M = len(pattern)
-    dfa = [{} for _ in range(M)]
-    dfa[0][pattern[0]] = 1
+    M = len(pattern) # calcula o comprimento do padrão de expressão regular.
+    dfa = [{} for _ in range(M)] # Cria uma lista de dicionários, com Mentradas. Cada dicionário representará um estado no DFA, e as chaves serão caracteres (símbolos) do alfabeto, enquanto os valores serão o próximo estado para o qual fazer a transição ao encontrar esse caractere.
+    dfa[0][pattern[0]] = 1 # define a transição inicial no DFA. Afirma que a partir do estado inicial (índice 0 na dfalista), encontrar o primeiro caractere ( pattern[0]) do padrão levará ao estado 1.
+# Iterando através do padrão.
+    X = 0 # Esta variável será usada para rastrear o estado atual durante o processo de construção.
+    for j in range(1, M): # Itera pelos caracteres padrão, começando do segundo caractere (índice 1) até o último caractere ( M - 1).
+# Preenchendo a Tabela de Transição        
+        for c in range(256):   # Itera todos os caracteres possíveis (representados por seus códigos ASCII de 0 a 255) no intervalo de um byte. Isso garante que o DFA possa lidar com qualquer caractere, não apenas aqueles no padrão específico.
+            dfa[j][chr(c)] = dfa[X].get(chr(c), 0) # Para cada estado je caractere c, esta linha tenta encontrar uma transição do estado X(o estado atual) ao encontrar o caractere c.
+        # Configurando a transição explícita
+        dfa[j][pattern[j]] = j + 1  #Esta linha define explicitamente a transição para o caractere na posição atual ( j) no padrão. Afirma que encontrar esse caractere específico no estado jlevará ao próximo estado ( j + 1).
+        X = dfa[X].get(pattern[j], 0) #  atualiza a Xvariável para o próximo estado com base no estado atual ( X) e no caractere na posição atual ( pattern[j]) no padrão. Segue a mesma lógica da etapa 4b, mas especificamente para o caractere padrão.
 
-    X = 0
-    for j in range(1, M):
-        for c in range(256):
-            dfa[j][chr(c)] = dfa[X].get(chr(c), 0)
-        dfa[j][pattern[j]] = j + 1
-        X = dfa[X].get(pattern[j], 0)
-
-    return dfa
+    return dfa # Por fim, a função retorna o AFD construído, representado como uma lista de dicionários, onde cada dicionário representa um estado e suas transições para todos os caracteres possíveis.
 
 
 def is_word_boundary(text, index, pattern_length):
