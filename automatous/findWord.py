@@ -46,14 +46,16 @@ def search(text, pattern): # esta linha define uma função chamada searchque re
 # Retornando resultados
     return positions # Finalmente, a função retorna a positionslista, que contém os índices iniciais de todas as ocorrências não sobrepostas do padrão encontrado na string de texto.
 
-
+# Definindo o Texto (Variável T)
 T = (
     "O computador é uma máquina capaz de variados tipos de tratamento automático de informações ou processamento de dados. "
     "Entende-se por computador um sistema físico que realiza algum tipo de computação. Assumiu-se que os computadores pessoais "
     "e laptops são ícones da era da informação. O primeiro computador eletromecânico foi construído por Konrad Zuse (1910–1995). "
     "Atualmente, um microcomputador é também chamado computador pessoal ou ainda computador doméstico.")
-
+# Definindo o Padrão (Variável pattern)
 pattern = "computador"
-positions = search(T, pattern)
-
+# Chamando a searchfunção
+positions = search(T, pattern) # Esta linha chama a função search para encontrar todas as ocorrências do padrão "computador" no texto "T". A função retorna uma lista de posições (índices) onde o padrão é encontrado.
+# Imprimindo os resultados
 print(f"A palavra '{pattern}' ocorre nas posições: {positions}")
+# [2, 133, 294, 412, 440]
