@@ -89,7 +89,7 @@ accepted_strings_a = ["","a", "ab", "ac", "abb", "abcc", "aabbcc", "abc", "aab",
                       "abbbcccccccccc", "aabbbcccccccccc", "aabbbccccccccccc", "abbbccccccccccc", "aabbbccccccccccc",
                       "aabbbcccccccccccc", "abbbcccccccccccc", "aabbbcccccccccccc", "aabbbccccccccccccc",
                       "abbbccccccccccccc"]
-rejected_strings_a = ["b", "c", "ba", "ca", "bb", "cc", "bca", "cab", "bac", "cba", "babc", "cbac", "bacb", "cbca",
+rejected_strings_a = ["b", "c", "cc", "baa", "abbbbccccb", "ba", "ca", "bb", "cc", "bca", "cab", "bac", "cba", "babc", "cbac", "bacb", "cbca",
                       "bacbc", "cbcac", "bacbac", "cbcbac", "bacbacb", "cbcbacb", "bacbacbc", "cbcbacbc", "bacbacbcc",
                       "cbcbacbcc", "bacbacbccc", "cbcbacbccc", "bacbacbcccc", "cbcbacbcccc", "bacbacbccccc",
                       "cbcbacbccccc", "bacbacbcccccc", "cbcbacbcccccc", "bacbacbccccccc", "cbcbacbccccccc",
