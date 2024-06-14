@@ -15,7 +15,7 @@ def build_dfa(pattern):
 
     return dfa # Por fim, a função retorna o AFD construído, representado como uma lista de dicionários, onde cada dicionário representa um estado e suas transições para todos os caracteres possíveis.
 
-
+# Este trecho de código verifica se um determinado padrão pode ser inserido em um índice específico dentro de uma string de texto sem violar os limites das palavras alfanuméricas. Isso ajuda a manter a integridade das palavras existentes ao inserir novo conteúdo.
 def is_word_boundary(text, index, pattern_length):
     if index > 0 and text[index - 1].isalnum():
         return False
@@ -24,21 +24,27 @@ def is_word_boundary(text, index, pattern_length):
     return True
 
 
-def search(text, pattern):
-    dfa = build_dfa(pattern)
-    M = len(pattern)
-    N = len(text)
-    j = 0
-    positions = []
+def search(text, pattern): # esta linha define uma função chamada searchque recebe dois argumentos: text: a string de texto a ser pesquisada (supostamente uma string). pattern: o padrão a ser pesquisado (considerado uma string que representa uma expressão regular).
+    dfa = build_dfa(pattern) # esta linha chama a função build_dfa para construir um DFA com base no padrão de expressão regular fornecido. Este DFA será usado para determinar com eficiência se uma sequência de caracteres no texto corresponde ao padrão.
+    M = len(pattern) # Esta linha calcula o comprimento da string do padrão e o armazena na variável M.
+    N = len(text) # Esta linha calcula o comprimento da string de texto e o armazena na variável N.
+    j = 0 # Esta linha inicializa uma variável jcom 0. Ela será usada para rastrear a posição atual na string de texto durante o processo de pesquisa.
+    positions = [] # Esta linha inicializa uma lista vazia chamada positions. Esta lista eventualmente armazenará os índices iniciais de todas as ocorrências do padrão encontrado no texto.
 
-    for i in range(N):
-        j = dfa[j].get(text[i], 0)
+# Iterando através do texto
+    for i in range(N): # Este loop itera sobre cada caractere ( text[i]) na string de texto.
+# Transição no DFA
+        j = dfa[j].get(text[i], 0) 
+# combinando o padrão
         if j == M:
+# Verificando os limites do Word (opcional)
             if is_word_boundary(text, i - M + 1, M):
+# Armazenando correspondências
                 positions.append(i - M + 1)
+# Redefinindo o estado do DFA
             j = 0
-
-    return positions
+# Retornando resultados
+    return positions # Finalmente, a função retorna a positionslista, que contém os índices iniciais de todas as ocorrências não sobrepostas do padrão encontrado na string de texto.
 
 
 T = (
