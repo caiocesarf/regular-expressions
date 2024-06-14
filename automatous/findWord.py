@@ -1,3 +1,4 @@
+# Este código define uma classe DFA para representar um Autômato Finito Determinístico (DFA) e demonstra sua utilização para verificar se uma string pertence a uma linguagem regular específica.
 def build_dfa(pattern):
     M = len(pattern)
     dfa = [{} for _ in range(M)]
