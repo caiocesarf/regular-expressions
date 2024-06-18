@@ -72,32 +72,32 @@ class Aut:
 ft = {
     #estado q0: caso receba "a", segue para o q4; caso receba "b" ou "c", segue para o q1.
     "q0": {
-        "a": "q4",
-        "b": "q1",
-        "c": "q1"
+        "a": "q1",
+        "b": "q4",
+        "c": "q4"
     },
     #estado q4: caso receba "a", segue para o q5.
-    "q4": {
-        "a": "q5",
+    "q1": {
+        "a": "q2",
 
     },
     #estado q5: caso receba "a"
-    "q5": {
-        "a": "q6",
-    },
-    "q6": {
-        "b": "q6",
-        "c": "q6"
-    },
-    "q1": {
-        "a": "q2",
-        "b": "q1",
-        "c": "q1"
-    },
     "q2": {
         "a": "q3",
     },
     "q3": {
+        "b": "q3",
+        "c": "q3"
+    },
+    "q4": {
+        "a": "q5",
+        "b": "q4",
+        "c": "q4"
+    },
+    "q5": {
+        "a": "q6",
+    },
+    "q6": {
         "a": "q7",
     },
     "q7":{
@@ -105,7 +105,7 @@ ft = {
 }
 
 E_ini = 'q0'
-E_fim = ["q7","q6"]
+E_fim = ["q7","q3"]
 
 Aut = Aut(ft, E_ini, E_fim)
 
