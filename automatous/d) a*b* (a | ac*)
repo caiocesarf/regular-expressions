@@ -94,6 +94,7 @@ E_fim = [ "q4", "q6", "q2", "q3"]
 
 Aut = Aut(ft, E_ini, E_fim)
 
+# Cadeia de teste, se reconhecida, será sentenças reconhecidas pelo autômato.
 testes = ['baac', '', 'aabba', 'a','ac', 'aaaabbbbbba', 'abacccccc' ]
 
 Aut.teste_cadeia(testes)
