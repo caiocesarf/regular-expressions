@@ -1,7 +1,7 @@
 class Aut:
   # Esta classe representa um autômato de estado finito (FSA) e fornece métodos para inicializar, 
   # verificar se uma string é aceita pelo autômato e imprimir o caminho de transição para uma string de entrada.
-  def _init_(self, ft, E_ini, E_fim, alf=[]):
+  def __init__(self, ft, E_ini, E_fim, alf=[]):
     self.ft = ft
     self.E_ini = E_ini
     self.E_fim = E_fim
