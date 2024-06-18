@@ -70,33 +70,37 @@ class Aut:
         self.verifica_estado(sent, True)
 # Define as transições de estado para a FSA.
 ft = {
-    #estado q0: caso receba "a", segue para o q4; caso receba "b" ou "c", segue para o q1.
+    #estado q0: caso receba "a", segue para o q1; caso receba "b" ou "c", segue para o q4.
     "q0": {
         "a": "q1",
         "b": "q4",
         "c": "q4"
     },
-    #estado q4: caso receba "a", segue para o q5.
+    #estado q1: caso receba "a", segue para o q2.
     "q1": {
         "a": "q2",
 
     },
-    #estado q5: caso receba "a"
+    #estado q2: caso receba "a" vai para q3, se recebe b ou c fica em q3, sendo que ele é o estado final.
     "q2": {
         "a": "q3",
     },
+# estado q3, quando receber b ou c fica em q3
     "q3": {
         "b": "q3",
         "c": "q3"
     },
+# estado q4 ao receber b ou c, fica em q4, se receber a vai para q5
     "q4": {
         "a": "q5",
         "b": "q4",
         "c": "q4"
     },
+# estado q5 ao receber a segue para q6
     "q5": {
         "a": "q6",
     },
+# estado q6, quando recebe a, segue para q7 (estado fim)
     "q6": {
         "a": "q7",
     },
