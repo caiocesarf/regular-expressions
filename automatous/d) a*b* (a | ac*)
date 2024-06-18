@@ -69,3 +69,31 @@ class Aut:
     for sent in lista_de_sents:
         self.verifica_estado(sent, True)
 # Define as transições de estado para a FSA.
+ft = {
+    "q0": {
+        'a':"q1"
+              },
+      "q1": {
+          'a':"q1",
+          'b':"q2" ,
+          'c':"q3" ,
+      },
+      "q2": {
+          'a':"q3",
+          'b':"q2",
+  
+      },
+      "q3": {
+   
+          'c':"q3"
+      },
+}
+
+E_ini = 'q0'
+E_fim = [ "q4", "q6", "q2", "q3"]
+
+Aut = Aut(ft, E_ini, E_fim)
+
+testes = ['baac', '', 'aabba', 'a','ac', 'aaaabbbbbba', 'abacccccc' ]
+
+Aut.teste_cadeia(testes)
