@@ -1,0 +1,108 @@
+class Aut:
+  # Esta classe representa um autômato de estado finito (FSA) e fornece métodos para inicializar, 
+  # verificar se uma string é aceita pelo autômato e imprimir o caminho de transição para uma string de entrada.
+  def __init__(self, ft, E_ini, E_fim, alf=[]):
+    self.ft = ft
+    self.E_ini = E_ini
+    self.E_fim = E_fim
+    
+
+    if len(alf) == 0:
+      self.alf = self._Rec_Alf(ft)
+    else:
+      self.alf = alf
+
+  # Itera pelos valores (estados) da transição da função ( ft). Para cada símbolo na transição para um estado, verifica se já está no alfabeto
+  def _Rec_Alf(self, ft):
+    alf = []
+    for transicoes in ft.values():
+      for s in transicoes.keys():
+        if s not in alf:
+          alf.append(s)
+
+    return alf
+
+  #Imprime o caminho de transição para uma string de entrada, indicando se a string é aceita ou não.
+  def estados_caminho(self, aceito, sent, estados_visitados):
+    aceita_naoaceita = 'Cadeia aceita:' if aceito else 'Cadeia não aceita:'
+    estados_entre_parenteses = [f'({estado})' for estado in estados_visitados]
+    string_rastro = ' --> '.join(estados_entre_parenteses)
+    print(f'{aceita_naoaceita} {sent} = {string_rastro}')
+
+  # Verifica se uma determinada string de entrada ( sent) é aceita pelo autômato
+  def verifica_estado(self, sent, rastro=False):
+    estados_visitados = []
+    estado_atual = self.E_ini
+    estados_visitados.append(estado_atual)
+
+    #Repetição sobre o símbolo da sentença
+    for s in sent:
+      existe_no_alf = s in self.alf
+      existe_transicao = s in self.ft[estado_atual].keys()
+
+      # Se o símbolo não existe no alf reconhecido pelo autômato
+      # ou se não existe transição com o símbolo atual, a partir do
+      # estado atual, a sent é recusada
+      if not existe_no_alf or not existe_transicao:
+        if(rastro):
+          self.estados_caminho(False, sent, estados_visitados)
+        return False
+
+      estado_atual = self.ft[estado_atual][s]
+
+      if estado_atual == 'd':
+        if(rastro):
+          self.estados_caminho(False, sent, estados_visitados)
+        return False
+
+      estados_visitados.append(estado_atual)
+
+    aceita = estado_atual in self.E_fim
+
+    if(rastro):
+      self.estados_caminho(aceita, sent, estados_visitados)
+
+    return aceita
+
+  #Testa uma lista de strings de entrada ( lista_de_sents) em relação ao autômato.
+  def teste_cadeia(self, lista_de_sents):
+    for sent in lista_de_sents:
+        self.verifica_estado(sent, True)
+# Define as transições de estado para a FSA.
+ 
+ft = {
+    #estado q0: caso receba "b,c", segue para o q1; caso receba "b" ou "c", segue para o q4.
+    "q0": {
+        "a": "q1"
+    },
+    #estado q1: caso receba "a", segue para o q2.
+    "q1": {
+        "a": "q1",
+        "b": "q3",
+        "b": "q2"
+
+    },
+    #estado q2: caso receba "a" vai para q3, se recebe b ou c fica em q3, sendo que ele é o estado final.
+    "q2": {
+        "a": "q1",
+        "c": "q2"
+    },
+# estado q3, quando receber b ou c fica em q3
+    "q3": {
+        "a": "q1",
+        "b": "q3",
+        "c": "q2"
+
+    } 
+
+}
+
+E_ini = 'q0'
+E_fim = ["q0", "q1","q2","q3"]
+
+Aut = Aut(ft, E_ini, E_fim)
+
+testes = ['','ccccccaaaaaaaaaa', 'casa', 'bcaaaaa','caaaaaaa','baaa','a','aa','aaaaaaaaaaaaaaaa','bbbbbaaa','baaab','caaab','bbbccccbcbcaaa','aaaabcbbbcccbc', 'aaabcbcbcbcbc',
+'aaabbbbbccccccc', 'ababaaaa', 'ababa', 'abbb', 'aaababababa', 'aaaccccccccccccc', 'bcaaaccccccccccccccccccccccccccccccccccccccccccccccccccc''aaaccccababa''aabbbbababababa''aaababababbbbba']
+
+Aut.teste_cadeia(testes)
