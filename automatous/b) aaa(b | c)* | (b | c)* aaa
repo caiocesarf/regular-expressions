@@ -118,6 +118,7 @@ E_fim = ["q7","q3","q8"]
 
 Aut = Aut(ft, E_ini, E_fim)
 
+# Cadeia de teste, se reconhecida, será sentenças reconhecidas pelo autômato.
 testes = ['','ccccccaaaaaaaaaa', 'casa', 'bcaaaaa','caaaaaaa','baaa','a','aa','aaaaaaaaaaaaaaaa','bbbbbaaa','baaab','caaab','bbbccccbcbcaaa','aaaabcbbbcccbc', 'aaabcbcbcbcbc',
 'aaabbbbbccccccc', 'ababaaaa', 'ababa', 'abbb', 'aaababababa', 'aaaccccccccccccc', 'bcaaaccccccccccccccccccccccccccccccccccccccccccccccccccc''aaaccccababa''aabbbbababababa''aaababababbbbba']
 
