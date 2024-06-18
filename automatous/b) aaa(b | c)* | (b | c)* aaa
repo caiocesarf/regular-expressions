@@ -1,0 +1,116 @@
+class Aut:
+  # Inicialização do autômato, salvando suas variáveis na instância
+  def __init__(self, ft, E_ini, E_fim, alf=[]):
+    self.ft = ft
+    self.E_ini = E_ini
+    self.E_fim = E_fim
+    
+
+    if len(alf) == 0:
+      self.alf = self._Rec_Alf(ft)
+    else:
+      self.alf = alf
+
+  # Método que percorre a função de transição do autômato para reconhecer os
+  # símbolos aceitos por ele (alf)
+  def _Rec_Alf(self, ft):
+    alf = []
+
+    for transicoes in ft.values():
+      for s in transicoes.keys():
+        if s not in alf:
+          alf.append(s)
+
+    return alf
+
+  # Método para imprimir o rastro de transições do autômato, ilustrando se
+  # uma determinada sent é aceita ou não por ele
+  def estados_caminho(self, aceito, sent, estados_visitados):
+    emoji = 'Cadeia aceita:' if aceito else 'Cadeia não aceita:'
+    estados_entre_parenteses = [f'({estado})' for estado in estados_visitados]
+
+    string_rastro = ' --> '.join(estados_entre_parenteses)
+    print(f'{emoji} {sent} = {string_rastro}')
+
+  # Método para testar se uma sent é aceita ou não pelo autômato
+  def verifica_estado(self, sent, rastro=False):
+    estados_visitados = []
+    estado_atual = self.E_ini
+    estados_visitados.append(estado_atual)
+
+    # Itera sobre os símbolos da sent
+    for s in sent:
+      existe_no_alf = s in self.alf
+      existe_transicao = s in self.ft[estado_atual].keys()
+
+      # Se o símbolo não existe no alf reconhecido pelo autômato
+      # ou se não existe transição com o símbolo atual, a partir do
+      # estado atual, a sent é recusada
+      if not existe_no_alf or not existe_transicao:
+        if(rastro):
+          self.estados_caminho(False, sent, estados_visitados)
+        return False
+
+      estado_atual = self.ft[estado_atual][s]
+
+      if estado_atual == 'd':
+        if(rastro):
+          self.estados_caminho(False, sent, estados_visitados)
+        return False
+
+      estados_visitados.append(estado_atual)
+
+    aceita = estado_atual in self.E_fim
+
+    if(rastro):
+      self.estados_caminho(aceita, sent, estados_visitados)
+
+    return aceita
+
+  # Método para teste de listas de sents, imprimindo o rastro de cada uma
+  def teste_cadeia(self, lista_de_sents):
+    for sent in lista_de_sents:
+        self.verifica_estado(sent, True)
+ft = {
+    #estado q0: caso receba "a", segue para o q4; caso receba "b" ou "c", segue para o q1.
+    "q0": {
+        "a": "q4",
+        "b": "q1",
+        "c": "q1"
+    },
+    #estado q4: caso receba "a", segue para o q5.
+    "q4": {
+        "a": "q5",
+
+    },
+    #estado q5: caso receba "a"
+    "q5": {
+        "a": "q6",
+    },
+    "q6": {
+        "b": "q6",
+        "c": "q6"
+    },
+    "q1": {
+        "a": "q2",
+        "b": "q1",
+        "c": "q1"
+    },
+    "q2": {
+        "a": "q3",
+    },
+    "q3": {
+        "a": "q7",
+    },
+    "q7":{
+    }
+}
+
+E_ini = 'q0'
+E_fim = ["q7","q6"]
+
+Aut = Aut(ft, E_ini, E_fim)
+
+testes = ['caaaa','aaa','a','aa','baaa','aaac','aaab','caaa','bbbccccbcbcaaa','aaaabcbbbcccbc']
+
+Aut.teste_cadeia(testes)
