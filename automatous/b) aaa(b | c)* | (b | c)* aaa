@@ -1,7 +1,7 @@
 class Aut:
   # Esta classe representa um autômato de estado finito (FSA) e fornece métodos para inicializar, 
   # verificar se uma string é aceita pelo autômato e imprimir o caminho de transição para uma string de entrada.
-  def __init__(self, ft, E_ini, E_fim, alf=[]):
+  def _init_(self, ft, E_ini, E_fim, alf=[]):
     self.ft = ft
     self.E_ini = E_ini
     self.E_fim = E_fim
@@ -70,7 +70,7 @@ class Aut:
         self.verifica_estado(sent, True)
 # Define as transições de estado para a FSA.
 ft = {
-    #estado q0: caso receba "a", segue para o q1; caso receba "b" ou "c", segue para o q4.
+    #estado q0: caso receba "b,c", segue para o q1; caso receba "b" ou "c", segue para o q4.
     "q0": {
         "a": "q1",
         "b": "q4",
@@ -78,17 +78,17 @@ ft = {
     },
     #estado q1: caso receba "a", segue para o q2.
     "q1": {
-        "a": "q2",
+        "a": "q2"
 
     },
     #estado q2: caso receba "a" vai para q3, se recebe b ou c fica em q3, sendo que ele é o estado final.
     "q2": {
-        "a": "q3",
+        "a": "q3"
     },
 # estado q3, quando receber b ou c fica em q3
     "q3": {
-        "b": "q3",
-        "c": "q3"
+        "b": "q8",
+
     },
 # estado q4 ao receber b ou c, fica em q4, se receber a vai para q5
     "q4": {
@@ -98,22 +98,27 @@ ft = {
     },
 # estado q5 ao receber a segue para q6
     "q5": {
-        "a": "q6",
+        "a": "q6"
     },
 # estado q6, quando recebe a, segue para q7 (estado fim)
     "q6": {
-        "a": "q7",
+        "a": "q7"
     },
     "q7":{
-    }
+    },
+    # estado q8, quando recebe c, segue para q3 (estado fim)
+    "q8": {
+        "c": "q3"
+}
+    
 }
 
 E_ini = 'q0'
-E_fim = ["q7","q3"]
+E_fim = ["q7","q3","q8"]
 
 Aut = Aut(ft, E_ini, E_fim)
 
 testes = ['','ccccccaaaaaaaaaa', 'casa', 'bcaaaaa','caaaaaaa','baaa','a','aa','aaaaaaaaaaaaaaaa','bbbbbaaa','baaab','caaab','bbbccccbcbcaaa','aaaabcbbbcccbc', 'aaabcbcbcbcbc',
-'aaabbbbbccccccc', 'ababaaaa', 'ababa', 'abbb', 'aaababababa', 'aaaccccccccccccc', 'bcaaaccccccccccccccccccccccccccccccccccccccccccccccccccc']
+'aaabbbbbccccccc', 'ababaaaa', 'ababa', 'abbb', 'aaababababa', 'aaaccccccccccccc', 'bcaaaccccccccccccccccccccccccccccccccccccccccccccccccccc''aaaccccababa''aabbbbababababa''aaababababbbbba']
 
 Aut.teste_cadeia(testes)
