@@ -75,19 +75,19 @@ ft = {
     "q0": {
         "a": "q1"
     },
-    #estado q1: caso receba "a", segue para o q1, quando recebe b vai para q3, quando .
+    #estado q1: caso receba "a", segue para o q1, quando recebe b vai para q3, quando recebe c vai para q2 .
     "q1": {
         "a": "q1",
         "b": "q3",
         "c": "q2"
 
     },
-    #estado q2: caso receba "a" vai para q3, se recebe b ou c fica em q3, sendo que ele é o estado final.
+    #estado q2: caso receba "a" vai para q1, quando recebe c vai para q2
     "q2": {
         "a": "q1",
         "c": "q2"
     },
-# estado q3, quando receber b ou c fica em q3
+# estado q3, quando recebe a direciona para q1, quando recebe b vai para q3, se vier o c vai  q2
     "q3": {
         "a": "q1",
         "b": "q3",
@@ -96,11 +96,12 @@ ft = {
     } 
 }
 
-E_ini = 'q0'
-E_fim = ["q0", "q1","q2","q3"]
+E_ini = 'q0' # estado inicial
+E_fim = ["q0", "q1","q2","q3"] # Estados finais do autômato.
 
 Aut = Aut(ft, E_ini, E_fim)
 
+# Cadeia de teste, se reconhecida, será sentenças reconhecidas pelo autômato.
 testes = ['','ccccccaaaaaaaaaa', 'casa', 'bcaaaaa','caaaaaaa','baaa','a','aa','aaaaaaaaaaaaaaaa','bbbbbaaa','baaab','caaab','bbbccccbcbcaaa','aaaabcbbbcccbc', 'aaabcbcbcbcbc',
 'aaabbbbbccccccc', 'ababaaaa', 'ababa', 'abbb', 'aaababababa', 'aaaccccccccccccc', 'bcaaaccccccccccccccccccccccccccccccccccccccccccccccccccc''aaaccccababa''aabbbbababababa''aaababababbbbba']
 
