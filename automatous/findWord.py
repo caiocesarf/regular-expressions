@@ -1,6 +1,7 @@
-# Cria um autômato finito determinístico (DFA) a a partir da expressão regular.
+# construção do autômato
 def build_dfa(pattern):
-    M = len(pattern) # calcula o comprimento do padrão de expressão regular.
+     # calcula o comprimento do padrão da Expressão regular
+    M = len(pattern)
     dfa = [{} for _ in range(M)] # Cria uma lista de dicionários, com Mentradas. Cada dicionário representará um estado no DFA, e as chaves serão caracteres (símbolos) do alfabeto, enquanto os valores serão o próximo estado para o qual fazer a transição ao encontrar esse caractere.
     dfa[0][pattern[0]] = 1 # define a transição inicial no DFA. Afirma que a partir do estado inicial (índice 0 na dfalista), encontrar o primeiro caractere ( pattern[0]) do padrão levará ao estado 1.
 # Iterando através do padrão.
