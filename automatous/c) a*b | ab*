@@ -70,31 +70,38 @@ class Aut:
         self.verifica_estado(sent, True)
 # Define as transições de estado para a FSA.
 ft = {
+# q0 quando recebe a vai para q1, quando recebe b vai para q4
     "q0": {
         "a": "q1",
         "b": "q4"
     },
+# q1 quando recebe a vai para q2, quando recebe b vai para q5
       "q1": {
         "a": "q2",
         "b": "q5"
     },
+# q2 quando recebe a vai para q2, quando recebe b vai para q3
     "q2": {
         "a": "q2", 
         "b": "q3"
     },
+# q3 estado final e não sai nenhuma transição dele. Igual para q4
     "q3": {
     },
     "q4": {
     },
+# q5 quando recebe b fica nele mesmo.
       "q5": {
         "b": "q5"
     }
 
 }
-E_ini = 'q0'
+E_ini = 'q0' #b estado inicial
 E_fim = ["q1", "q2","q3", "q4", "q5"]
 
 Aut = Aut(ft, E_ini, E_fim)
+
+# Cadeia de teste, se reconhecida, será sentenças reconhecidas pelo autômato.
 
 testes = ['aaaab', 'a','abbbbb', 'abbbbbbbbbbb', 'aaaaaaaaaaaaaab', 'abbbbbbbb','b', 'ab', 'abb', 'aab', 'aaab', 'abbb', 'ba','',
           'abab', 'baa', 'aba', 'ababbb', 'abaaaaaaaaaaaaa', 'aaaaaaaba', 'aaaaabbbbbbbbbbbba']
