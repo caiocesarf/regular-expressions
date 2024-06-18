@@ -71,15 +71,15 @@ class Aut:
 # Define as transições de estado para a FSA.
  
 ft = {
-    #estado q0: caso receba "b,c", segue para o q1; caso receba "b" ou "c", segue para o q4.
+    #estado q0: caso receba a segue para q1
     "q0": {
         "a": "q1"
     },
-    #estado q1: caso receba "a", segue para o q2.
+    #estado q1: caso receba "a", segue para o q1, quando recebe b vai para q3, quando .
     "q1": {
         "a": "q1",
         "b": "q3",
-        "b": "q2"
+        "c": "q2"
 
     },
     #estado q2: caso receba "a" vai para q3, se recebe b ou c fica em q3, sendo que ele é o estado final.
