@@ -8,9 +8,8 @@ def valida_senha_regex(senha):
     # (?=.*[a-zA-Z]) -> Pelo menos uma letra
     # (?=.*[!@#$%^&*(),.?":{}|<>]) -> Pelo menos um caractere especial
     # (?=.*\d) -> Pelo menos um número
-    # .{6,} -> Pelo menos 6 caracteres no total
-
-    padrao = re.compile(r'^(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*\d).{6,}$')
+    # .{8,} -> Pelo menos 8 caracteres no total
+    padrao = re.compile(r'^(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*\d).{8,}$')
     return bool(padrao.match(senha))
 
 # Definição da Gramática Livre de Contexto (GLC) para senha
@@ -19,7 +18,7 @@ def valida_senha_regex(senha):
 # - Pelo menos uma letra qualquer
 # - Pelo menos um número
 # - Pelo menos um caractere especial
-# - No mínimo 6 caracteres no total
+# - No mínimo 8 caracteres no total
 
 letra_maiuscula = Word(alphas.upper(), exact=1)  # Uma letra maiúscula
 letras = Word(alphas)  # Pelo menos uma letra
@@ -38,10 +37,10 @@ def valida_senha_glc(senha):
 
 # Testando as funções com exemplos de senha
 senhas_teste = [
-    "Aa1!abc",    # Válida
+    "Aa1!abcd",    # Válida
     "abcdef",     # Sem maiúscula, especial e número
     "Aaaaaa",     # Sem número e especial
-    "123456",     # Sem letras
+    "12345678",   # Sem letras
     "Aa!1",       # Muito curta
 ]
 
